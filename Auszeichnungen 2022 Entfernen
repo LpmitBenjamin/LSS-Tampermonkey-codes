@@ -1,0 +1,31 @@
+// ==UserScript==
+// @name         Auszeichnungen 2022 Entfernen
+// @namespace    leitstellenspiel.de
+// @version      1.0
+// @description  Blendet Auszeichnungen aus, die von 2022 sind
+// @author       LpmitBenjamin
+// @match        https://www.leitstellenspiel.de/auszeichnungen
+// @grant        none
+// ==/UserScript==
+
+(function() {
+    'use strict';
+
+    // Suche nach Panels mit der Klasse "panel panel-default mission_panel_green task_panel"
+    const panels = document.querySelectorAll('.col-sm-3');
+
+    // Iteriere über die gefundenen Panels
+    for (let i = 0; i < panels.length; i++) {
+        const panel = panels[i];
+        const form = panel.querySelector('.panel-title');
+
+        // Überprüfe, ob das Formular das Wort "Coin" oder "Coins" enthält
+        if (form && (form.textContent.includes('2022') || form.textContent.includes('Weiß nicht wie ich das lösche'))) {
+            // Verstecke das Panel
+            panel.style.display = 'none';
+            // Gib den Tasknamen in der Konsole aus (wenn nicht gewünscht, die folgende Zeile einfach auskommentieren)
+            console.log('Ausgeblendeter Auszeichnungen:', form.textContent.trim());
+        }
+    }
+})();
+
